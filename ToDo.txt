@@ -1,0 +1,8 @@
+
+I want to add:
+
+1. Languadge module
+2. Time scale
+3. Graph mode
+4. SVG mode
+5. Layers
