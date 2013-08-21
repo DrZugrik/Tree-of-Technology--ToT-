@@ -1,0 +1,21 @@
+<xml>
+	<Person>
+		<id=0></id>
+		<name>Albert</name>
+		<shourname>Einstein</shourname>
+		<title></title>
+		<born>14.03.1879</born>
+		<death>18.04.1955</death>
+		<specialty>phisics, mathematics</specialty>
+	</Person>
+	
+	<Person>
+		<id=1>
+		<name>Nikola</name>
+		<shourname>Tesla</shourname>
+		<title></title>
+		<born>10.07.1856</born>
+		<death>7.01.1943</death>
+		<specialty>phisics, ingeneer, electricity</specialty>
+	</Person>
+</xml>
