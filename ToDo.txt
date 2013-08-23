@@ -6,3 +6,4 @@ I want to add:
 3. Graph mode
 4. SVG mode
 5. Layers
+6. Make new SVG block
