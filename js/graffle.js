@@ -57,6 +57,7 @@ Raphael.fn.connection = function (obj1, obj2, line, bg) {
 
 var el;
 window.onload = function () {
+
     var dragger = function () {
         this.ox = this.type == "rect" ? this.attr("x") : this.attr("cx");
         this.oy = this.type == "rect" ? this.attr("y") : this.attr("cy");
@@ -78,7 +79,7 @@ window.onload = function () {
         
         r = Raphael("field", 1200, 500),
         connections = [],
-        shapes = [  r.rect(20, 10, 60, 40, 10),
+        shapes = [  r.rect(60, 10, 60, 40, 10),
                     r.rect(290, 80, 60, 40, 10),
                     r.rect(250, 30, 60, 40, 10),
                     r.rect(100, 60, 60, 40, 10),
@@ -90,6 +91,9 @@ window.onload = function () {
         shapes[i].drag(move, dragger, up);
     }
     
+    // Axis
+ var lines = r.linechart(25, 20, 800, 450, [[0, 1]], [[10, 20]], { nostroke: true, axis: "0 0 1 1"});                   
+                 ;
     // List connection of elements ToT 
     
     connections.push(r.connection(shapes[0], shapes[1], "#f0f"));
