@@ -58,13 +58,40 @@ Raphael.fn.connection = function (obj1, obj2, line, bg) {
 var el;
 window.onload = function () {
 
-    var dragger = function () {
+
+        
+        r = Raphael("field", 1200, 500),
+		
+		// Axis
+
+		lines = r.linechart(25, 25, r.width-25, r.height-50, [0, r.width-50], [0, r.height-50], {nostroke: true, axis: "0 0 1 1"}),
+		// Global coordinats
+		gX=30;
+		gY=30;
+		//
+
+		// Global variables - coordinate of rect - ox, oy (???)
+
+		
+
+		dragger = function () {
+
         this.ox = this.type == "rect" ? this.attr("x") : this.attr("cx");
         this.oy = this.type == "rect" ? this.attr("y") : this.attr("cy");
         this.animate({"fill-opacity": .2}, 500);
+        this.ox = this.type == "image" ? this.attr("x") : this.attr("cx");
+        this.oy = this.type == "image" ? this.attr("y") : this.attr("cy");
+        this.animate({"fill-opacity": .2}, 500);
     },
         move = function (dx, dy) {
-            var att = this.type == "rect" ? {x: this.ox + dx, y: this.oy + dy} : {cx: this.ox + dx, cy: this.oy + dy};
+        	//var att = this.type == "rect" ? {x: this.ox + dx, y: this.oy + dy} : {cx: this.ox + dx, cy: this.oy + dy};
+            var att = this.type == "rect" ? {y: this.oy + dy} : {cy: this.oy + dy};
+            this.attr(att);
+            for (var i = connections.length; i--;) {
+                r.connection(connections[i]);
+            }
+            
+            var att = this.type == "image" ? {y: this.oy + dy} : {cy: this.oy + dy};
             this.attr(att);
             for (var i = connections.length; i--;) {
                 r.connection(connections[i]);
@@ -75,31 +102,35 @@ window.onload = function () {
             this.animate({"fill-opacity": 0}, 500);
         },
         
-        // Matrix of elements ToT
+		// Matrix of elements ToT
+
+        shapes = [],
+        shapes.push(r.image("block_Person.svg",gX+50, gY+50, 90,100));
+        shapes.push(r.image("block_Person.svg",gX+290, gY+10, 90,100));
+        shapes.push(r.image("block_Person.svg",gX+500, gY+80, 90,100));
+        shapes.push(r.image("block_Person.svg",gX+250, gY+250, 90,100));
+        shapes.push(r.image("block_Inventor.svg", gX+600, gY+300, 90,100));
         
-        r = Raphael("field", 1200, 500),
-        connections = [],
-        shapes = [  r.rect(60, 10, 60, 40, 10),
-                    r.rect(290, 80, 60, 40, 10),
-                    r.rect(250, 30, 60, 40, 10),
-                    r.rect(100, 60, 60, 40, 10),
-                    r.rect(180, 100, 60, 40, 10)
-                ];
+        
+        
+                
     for (var i = 0, ii = shapes.length; i < ii; i++) {
         var color = Raphael.getColor();
-        shapes[i].attr({fill: color, stroke: color, "fill-opacity": 0, "stroke-width": 2, cursor: "move"});
+        shapes[i].attr({fill: color, stroke: color, "fill-opacity": 0, cursor: "move"});
         shapes[i].drag(move, dragger, up);
     }
     
-    // Axis
- var lines = r.linechart(25, 20, 800, 450, [[0, 1]], [[10, 20]], { nostroke: true, axis: "0 0 1 1"});                   
-                 ;
-    // List connection of elements ToT 
+	
+	// List connection of elements ToT 
+	
+	        connections = [],
     
-    connections.push(r.connection(shapes[0], shapes[1], "#f0f"));
-    connections.push(r.connection(shapes[1], shapes[2], "#ff0", "#000"));
-    connections.push(r.connection(shapes[1], shapes[3], "#fff000", "#f00"));
-	connections.push(r.connection(shapes[0], shapes[3], "#fff000", "#f00"));
-	connections.push(r.connection(shapes[0], shapes[2], "#fff000", "#f00"));
-	connections.push(r.connection(shapes[4], shapes[3], "#fff000","#f0f"))
+    connections.push(r.connection(shapes[0], shapes[1], "red"));
+    connections.push(r.connection(shapes[0], shapes[3], "red"));
+	connections.push(r.connection(shapes[0], shapes[2], "red"));
+	
+    connections.push(r.connection(shapes[1], shapes[2], "green"));
+    connections.push(r.connection(shapes[1], shapes[3], "green"));
+
+	connections.push(r.connection(shapes[3], shapes[4], "blue"));
 };
